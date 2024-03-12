@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 
   // a bunch of cool animations to use around, will clean up unused ones later
-  $("[words-slide-up]").each(function (index) {
+  $("p").each(function (index) {
     let tl = gsap.timeline({ paused: true });
     tl.from($(this).find(".word"), {
       opacity: 0,
