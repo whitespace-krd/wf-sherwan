@@ -26,7 +26,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
 
   // a bunch of cool animations to use around, will clean up unused ones later
-  $("p").each(function (index) {
+  $("[words-slide-up]").each(function (index) {
     let tl = gsap.timeline({ paused: true });
     tl.from($(this).find(".word"), {
       opacity: 0,
@@ -34,6 +34,19 @@ window.addEventListener("DOMContentLoaded", (event) => {
       duration: 0.5,
       ease: "back.out(2)",
       stagger: { amount: 0.5 },
+    });
+    createScrollTrigger($(this), tl);
+  });
+
+
+  $("[headings-animation]").each(function (index) {
+    let tl = gsap.timeline({ paused: true });
+    tl.from($(this).find(".word"), {
+      opacity: 0,
+      yPercent: 100,
+      duration: 0.5,
+      ease: "back.out(2)",
+      stagger: { amount: 0.8 },
     });
     createScrollTrigger($(this), tl);
   });
