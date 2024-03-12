@@ -31,9 +31,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
     tl.from($(this).find(".word"), {
       opacity: 0,
       yPercent: 100,
-      duration: 0.7,
+      duration: 0.4,
       ease: "power1.out",
-      stagger: { amount: 0.5 },
+      stagger: { amount: 0.3 },
     });
     createScrollTrigger($(this), tl);
   });
