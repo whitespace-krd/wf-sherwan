@@ -19,7 +19,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     ScrollTrigger.create({
       trigger: triggerElement,
-      start: "top 100%",
+      start: "top 80%",
       onEnter: () => timeline.play(),
     });
   }
@@ -30,7 +30,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     let tl = gsap.timeline({ paused: true });
     tl.from($(this).find(".word"), {
       opacity: 0,
-      yPercent: 100,
+      yPercent: 200,
       duration: 0.5,
       ease: "back.out(2)",
       stagger: { amount: 0.5 },
