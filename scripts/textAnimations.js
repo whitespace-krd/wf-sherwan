@@ -24,6 +24,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
   }
 
+  $(".navbar-link-text").each(function (index) {
+    let tl = gsap.timeline({ paused: true, delay: 5});
+    tl.from($(this).find(".word"), {
+      opacity: 0,
+      yPercent: 100,
+      duration: 0.4,
+      ease: "power1.out",
+      stagger: { amount: 0.3 },
+    });
+    tl.play(); // Play the timeline immediately on page load
+  });
 
   // a bunch of cool animations to use around, will clean up unused ones later
   $("[words-slide-up]").each(function (index) {
@@ -38,17 +49,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     createScrollTrigger($(this), tl);
   });
 
-  $(".navbar-link-text").each(function (index) {
-    let tl = gsap.timeline({ paused: true, delay: 5 });
-    tl.from($(this).find(".word"), {
-      opacity: 0,
-      yPercent: 100,
-      duration: 0.4,
-      ease: "power1.out",
-      stagger: { amount: 0.3 },
-    });
-    createScrollTrigger($(this), tl);
-  });
+
 
   $("[headings-animation]").each(function (index) {
     let tl = gsap.timeline({ paused: true });
