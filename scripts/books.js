@@ -307,13 +307,13 @@ const books = {
 // template: <div class="books"><div class="2019"><img src="assets/book-covers/2019-1984-George Orwell.jpg" alt="1984" /><img src="assets/book-covers/2019-1984-George Orwell.jpg" alt="1984" </div></div>
 
 const booksContainer = document.querySelector('.books');
-const pathprefix = "assets/book-covers/";
+const pathprefix = "https://whitespace-krd.github.io/wf-sherwan/";
 for (const year in books) {
   const yearDiv = document.createElement('div');
   yearDiv.classList.add(year);
   for (const book of books[year].books) {
     const img = document.createElement('img');
-    img.src = book.path;
+    img.src =  `https://whitespace-krd.github.io/wf-sherwan/${book.path}`;
     img.alt = book.name;
     yearDiv.appendChild(img);
   }
