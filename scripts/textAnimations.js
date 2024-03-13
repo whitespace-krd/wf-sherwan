@@ -38,6 +38,17 @@ window.addEventListener("DOMContentLoaded", (event) => {
     createScrollTrigger($(this), tl);
   });
 
+  $(".navbar-link-text").each(function (index) {
+    let tl = gsap.timeline({ paused: true, delay: 5 });
+    tl.from($(this).find(".word"), {
+      opacity: 0,
+      yPercent: 100,
+      duration: 0.4,
+      ease: "power1.out",
+      stagger: { amount: 0.3 },
+    });
+    createScrollTrigger($(this), tl);
+  });
 
   $("[headings-animation]").each(function (index) {
     let tl = gsap.timeline({ paused: true });
@@ -124,6 +135,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
     });
   });
 
+
+
+  
   // Avoid flash of unstyled content
   gsap.set("[text-split]", { opacity: 1 });
 });
