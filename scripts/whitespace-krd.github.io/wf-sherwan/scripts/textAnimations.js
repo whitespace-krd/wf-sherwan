@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   })
 
     gsap.from(".hero-image", {
-      delay: 4.3,
+      delay: 4.2,
       opacity: 0,
       scale: 0.8,
       duration: 1,
