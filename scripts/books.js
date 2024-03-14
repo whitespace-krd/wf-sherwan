@@ -299,7 +299,8 @@ const books = {
       },
     ],
   },
-  2024: [
+  2024: {
+  books: [
     {
       name: "Escape from freedom",
       path: "assets/book-covers/2024-Escape from freedom-Erich Fromm.jpg",
@@ -317,6 +318,7 @@ const books = {
       path: "assets/book-covers/2024-The Picture of Dorian Gray-Oscar Wilde.jpg",
     },
   ],
+}
 };
 
 // add all of those images to the DOM
@@ -342,7 +344,7 @@ for (const year in books) {
     const img = document.createElement("div");
     img.style.backgroundImage = `url("https://whitespace-krd.github.io/wf-sherwan/${book.path}")`;
     img.alt = book.name;
-    img.style.width = `calc(90% / ${aspectRatio})`;
+    img.style.aspectRatio = `1 / 1.5`;
     img.style.height = `90%`;
     img.style.position = "absolute";
     img.style.border = "5px solid white";
@@ -404,23 +406,24 @@ function startAnimation(yearDiv) {
 }
 gsap.registerPlugin(CustomEase);
 // Get all the year buttons
+const notch = document.querySelector('.notch'); // Select the notch element
+const timeline = document.querySelector('.timeline'); // Select the timeline 
 const yearButtons = document.querySelectorAll(".btn-year");
 CustomEase.create("bouncy", "1, -.356, 0, 1");
 // Add event listeners to each button
 yearButtons.forEach((button) => {
   // Hover animation
   button.addEventListener("mouseenter", () => {
-    gsap.to(button, { scale: 1.2, duration: 0.3, ease: "power2" });
+    gsap.to(button, { fontWeight: 700, fontSize: "6 rem", duration: 0.3, ease: "power2" });
   });
 
   button.addEventListener("mouseleave", () => {
-    gsap.to(button, { scale: 1, duration: 0.3, ease: "power2" });
+    gsap.to(button, { fontWeight: 300, fontSize: "3 rem", duration: 0.3, ease: "power2" });
   });
-
   // Click event to change the year
   button.addEventListener("click", () => {
     const selectedYear = button.id; // Get the year from the button's id
-
+    // tl.to(notch, { y: yearPosition, duration: 0.5, ease: 'power2.inOut' }); 
     // Hide all year divs
     const yearDivs = document.querySelectorAll(".books > div");
     yearDivs.forEach((div) => {
@@ -443,5 +446,48 @@ yearButtons.forEach((button) => {
 
     // Start the animation for the selected year
     startAnimation(selectedYearDiv);
+
+    const bookNames = books[selectedYear].books.map(book => book.name).join(" • ");
+    updateMarqueeText(bookNames);
+
   });
 });
+
+
+
+// now, I have a <div class="marquee"><p class="marquee-text"></p></div> in my HTML animate the marquee using gsap
+const marqueeText = document.querySelector('.marquee-text');
+const marqueeWidth = marqueeText.getBoundingClientRect().width;
+
+gsap.set(marqueeText, { x: marqueeWidth });
+
+// Duplicate the marquee text
+const clonedMarqueeText = marqueeText.cloneNode(true);
+marqueeText.parentNode.appendChild(clonedMarqueeText);
+
+gsap.to([marqueeText, clonedMarqueeText], {
+  duration: 60,
+  ease: 'none',
+  x: -marqueeWidth,
+  repeat: -1,
+});
+
+function updateMarqueeText(text) {
+  const marqueeText = document.querySelector('.marquee-text');
+  const clonedMarqueeText = marqueeText.nextElementSibling;
+  gsap.fromTo([marqueeText, clonedMarqueeText], { opacity: 1 }, { opacity: 0, duration: 0.5, ease: 'power2.inOut', onComplete: () => {
+    marqueeText.textContent = text;
+    clonedMarqueeText.textContent = text;
+  }});
+
+  gsap.fromTo([marqueeText, clonedMarqueeText], { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.inOut', delay: 0.5});
+  const marqueeWidth = marqueeText.getBoundingClientRect().width;
+  gsap.set([marqueeText, clonedMarqueeText], { x: marqueeWidth });
+
+  gsap.to([marqueeText, clonedMarqueeText], {
+    duration: 60,
+    ease: 'none',
+    x: -marqueeWidth,
+    repeat: -1,
+  });
+}
