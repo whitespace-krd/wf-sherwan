@@ -479,7 +479,6 @@ function updateMarqueeText(text) {
     marqueeText.textContent = text;
     clonedMarqueeText.textContent = text;
   }});
-
   gsap.fromTo([marqueeText, clonedMarqueeText], { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.inOut', delay: 0.5});
   const marqueeWidth = marqueeText.getBoundingClientRect().width;
   gsap.set([marqueeText, clonedMarqueeText], { x: marqueeWidth });
@@ -491,3 +490,5 @@ function updateMarqueeText(text) {
     repeat: -1,
   });
 }
+
+document.getElementById("2019").click(); // Start the animation for the initial year
