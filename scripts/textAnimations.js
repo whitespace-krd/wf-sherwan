@@ -189,6 +189,14 @@ window.addEventListener("DOMContentLoaded", (event) => {
     createScrollTrigger($(this), tl);
   });
 
+  ScrollTrigger.create({
+    trigger: $(this),
+    start: "top 80%",
+    onEnter: () => {
+      TweenMax.staggerFromTo($('#sign path'), 6, {drawSVG: "0%"}, {drawSVG: "100%"}, 6);
+    },
+  });
+
   $("[scrub-each-word]").each(function (index) {
     let tl = gsap.timeline({
       scrollTrigger: {
