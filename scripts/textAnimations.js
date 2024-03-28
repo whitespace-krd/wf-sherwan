@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   // // Remove the element from the DOM
   // introElement.parentNode.removeChild(introElement);
 
-  // const signElement = document.getElementById("sign");
+  const signElement = document.getElementById("sign");
 
   // Create a new DOMParser instance
   const parser = new DOMParser();
