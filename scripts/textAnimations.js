@@ -105,23 +105,42 @@ window.addEventListener("DOMContentLoaded", (event) => {
   tlPattern.to("#pattern", 150, {
     backgroundPosition: "-300% 0%",
     //autoRound:false,
-});
+  });
 
-  function createScrollTriggerFooter(triggerElement, timeline) {
-    // Reset tl when scroll out of view past bottom of screen
-    ScrollTrigger.create({
-      trigger: triggerElement,
-      start: "top bottom",
-      onLeaveBack: () => {
-        timeline.progress(0);
-        timeline.pause();
+  $("[parallax-image]").each(function (index) {
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: $(this),
+        start: "top bottom", // Start the parallax effect when the top of the image hits the bottom of the viewport
+        end: "bottom top", // End the parallax effect when the bottom of the image hits the top of the viewport
+        scrub: true, // Enable smooth scrolling
       },
     });
 
+    // Scale up the image to give space for parallax
+    // tl.from($(this), {
+    //   scale: 1.2,
+    //   ease: "none",
+    // });
+
+    // Change the background position on the y-axis during scroll
+    tl.fromTo(
+      $(this),
+      { backgroundPositionY: "0%" },
+      { backgroundPositionY: "90%", ease: "power1.out" },
+      0
+    );
+  });
+
+  function createScrollTriggerFooter(triggerElement, timeline) {
     ScrollTrigger.create({
-      trigger: triggerElement,
-      start: "top 90%",
-      onEnter: () => setTimeout(() => timeline.play()), // Add delay before playing the timeline
+      trigger: "#contact", // Trigger the animation when the last section is scrolled
+      start: "bottom top+=40%", // Start the animation when the bottom of the last section hits the bottom of the viewport
+      onEnter: () => {
+        console.log("Yippie!");
+        timeline.play();
+      }, // Play the timeline when the animation starts
+      onLeaveBack: () => timeline.reverse(), // Reverse the timeline when the animation ends
     });
   }
 
@@ -259,31 +278,60 @@ window.addEventListener("DOMContentLoaded", (event) => {
     createScrollTrigger($(this), tl);
   });
 
-  $("[letters-slide-up-footer]").each(function (index) {
-    let tl = gsap.timeline({ paused: true });
+  $("[words-slide-up-footer]").each(function (index) {
+    let tl = gsap.timeline({ paused: true, delay: 1 });
     tl.from($(this).find(".word"), {
       opacity: 0,
       yPercent: 50,
       duration: 0.4,
       ease: "expo",
-      stagger: { amount: 0.3 },
+      stagger: { amount: 0.4 },
     });
     createScrollTriggerFooter($(this), tl);
   });
 
+  $("[letters-slide-up-footer]").each(function (index) {
+    let tl = gsap.timeline({ paused: true, delay: 1 });
+    tl.from($(this).find(".char"), {
+      opacity: 0,
+      yPercent: 50,
+      duration: 0.4,
+      ease: "expo",
+      stagger: { amount: 0.4 },
+    });
+    createScrollTriggerFooter($(this), tl);
+  });
+  $("[lines-slide-up-footer]").each(function (index) {
+    let tl = gsap.timeline({ paused: true, delay: 1 });
+    tl.from($(this).children(), {
+      opacity: 0,
+      yPercent: 50,
+      duration: 0.4,
+      ease: "expo",
+      stagger: { amount: 0.4 },
+    });
+    createScrollTriggerFooter($(this), tl);
+  });
   const vivusInstance = new Vivus("Layer_2", {
     duration: 100,
     type: "oneByOne",
     start: "manual",
   });
   ScrollTrigger.create({
-    trigger: "#footer-section", // replace with the actual selector for your footer-section
-    start: "top 80%", // adjust this value to control when the animation should start
-    onEnter: () => {
-      console.log("playing!");
-      vivusInstance.play(); // start the Vivus animation
-    },
+    trigger: "#contact", // Trigger the animation when the last section is scrolled
+    start: "bottom bottom", // Start the animation when the bottom of the last section hits the bottom of the viewport
+    end: "bottom top-=90%", // End the animation when the bottom of the last section is 25% above the top of the viewport
+    onEnter: () => vivusInstance.play(), // Play the timeline when the animation starts
+    onLeaveBack: () => vivusInstance.reset(),
   });
+  // ScrollTrigger.create({
+  //   trigger: "#footer-section", // replace with the actual selector for your footer-section
+  //   start: "top 80%", // adjust this value to control when the animation should start
+  //   onEnter: () => {
+  //     console.log("playing!");
+  //     vivusInstance.play(); // start the Vivus animation
+  //   },
+  // });
 
   // const delay = parseFloat($(this).attr("delay")) || 0; // Read the delay attribute, or use 0 if not present
   // let tl = gsap.timeline({ paused: true, delay });
