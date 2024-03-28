@@ -102,8 +102,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   var tlPattern = new TimelineMax({ repeat: -1 });
 
-  tlPattern.to("#pattern", 150, {
-    backgroundPosition: "-300% 0%",
+  tlPattern.to("#pattern", 80, {
+    backgroundPosition: "0% -300%",
     //autoRound:false,
   });
 
@@ -279,7 +279,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 
   $("[words-slide-up-footer]").each(function (index) {
-    let tl = gsap.timeline({ paused: true, delay: 1 });
+    let tl = gsap.timeline({ paused: true, delay: 0.2 });
     tl.from($(this).find(".word"), {
       opacity: 0,
       yPercent: 50,
@@ -291,7 +291,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   });
 
   $("[letters-slide-up-footer]").each(function (index) {
-    let tl = gsap.timeline({ paused: true, delay: 1 });
+    let tl = gsap.timeline({ paused: true, delay: 0.3 });
     tl.from($(this).find(".char"), {
       opacity: 0,
       yPercent: 50,
@@ -302,7 +302,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     createScrollTriggerFooter($(this), tl);
   });
   $("[lines-slide-up-footer]").each(function (index) {
-    let tl = gsap.timeline({ paused: true, delay: 1 });
+    let tl = gsap.timeline({ paused: true, delay: 0.4 });
     tl.from($(this).children(), {
       opacity: 0,
       yPercent: 50,
