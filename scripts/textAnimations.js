@@ -1,9 +1,9 @@
 window.addEventListener("DOMContentLoaded", (event) => {
   // Select the element with the id of "intro"
-  // const introElement = document.getElementById("intro");
+  const introElement = document.getElementById("intro");
 
-  // // Remove the element from the DOM
-  // introElement.parentNode.removeChild(introElement);
+  // Remove the element from the DOM
+  introElement.parentNode.removeChild(introElement);
 
   const signElement = document.getElementById("sign");
 
